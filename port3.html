@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-RF9j/R2OxqIY9L7gnyu80NmO5uXf6NUX6Dw+Pit2tFtDJKf6pvDt5J2ne+YxvZMr8ZxKBCsGLI3sC3qL2ViR1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Basic reset and global styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #495057;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #6c5ce7; /* Purple */
+            color: #fff;
+            text-align: center;
+            padding: 2em 0;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 0.2em;
+            font-weight: 500;
+        }
+
+        header p {
+            font-size: 1.5em;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 2em;
+            right: 2em;
+            z-index: 1000; /* Ensure nav is above other content */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1em;
+            position: relative; /* Make li relative for absolute positioning of span */
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            position: relative; /* Ensure span is positioned relative to the li */
+            display: block; /* Ensure the entire li area is clickable */
+        }
+
+        /* Create a gradient underlay for nav options */
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 50%;
+            background: linear-gradient(135deg, #fd79a8, #4bcffa, #fdcb6e, #81ecec);
+            z-index: -1; /* Behind the text */
+            transition: transform 0.4s ease;
+            transform-origin: right;
+            transform: scaleX(0); /* Start with no width */
+        }
+
+        nav ul li a:hover::before {
+            transform-origin: left;
+            transform: scaleX(1); /* Expand from left to right on hover */
+        }
+
+        /* Section styles */
+        .section-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2em 1em;
+            text-align: center;
+        }
+
+        section {
+            padding: 4em 0;
+            background-color: #fff;
+            position: relative;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            margin-bottom: 1em;
+            color: #6c5ce7; /* Purple */
+            position: relative;
+            font-weight: 700;
+        }
+
+        section h2::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #6c5ce7; /* Purple */
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        section img {
+            max-width: 50%;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-top: 1em;
+        }
+
+        /* Skills section */
+        ul.skills {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin-top: 1em;
+        }
+
+        ul.skills li {
+            background-color: #4bcffa; /* Blue */
+            color: #fff;
+            font-size: 1.2em;
+            padding: 0.5em 1em;
+            margin: 0.5em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        ul.skills li:hover {
+            background-color: #22a6b3; /* Darker Blue */
+        }
+
+        /* Projects section */
+        .project {
+            margin-bottom: 3em;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+        }
+
+        .project img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .project-content {
+            padding: 1.5em;
+        }
+
+        .project h3 {
+            font-size: 1.8em;
+            margin-bottom: 0.5em;
+            color: #6c5ce7; /* Purple */
+        }
+
+        .project p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Resume section */
+        section#resume {
+            background-color: #fd79a8; /* Pink */
+            text-align: center;
+            padding: 4em 0;
+        }
+
+        section#resume p {
+            font-size: 1.2em;
+            color: #fff;
+            margin-bottom: 2em;
+        }
+
+        section#resume a {
+            display: inline-block;
+            background-color: #fff;
+            color: #fd79a8; /* Pink */
+            text-decoration: none;
+            font-weight: bold;
+            padding: 1em 2em;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        section#resume a:hover {
+            background-color: #ff4d6e; /* Lighter Pink */
+            color: #fff;
+        }
+
+        /* Contact section */
+        footer {
+            background-color: #81ecec; /* Light Blue */
+            color: #fff;
+            text-align: center;
+            padding: 2em 0;
+        }
+
+        footer p {
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #4bcffa; /* Darker Blue */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            header p {
+                font-size: 1.3em;
+            }
+
+            nav {
+                position: static;
+                margin-top: 1em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-bottom: 0.5em;
+            }
+
+            section h2::after {
+                width: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="home">
+        <div class="header-content">
+            <h1>ANKITA LOD </h1>
+            <p>Web Developer | Designer</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <div class="section-content">
+            <h2>About Me</h2>
+            <img src="https://media1.thehungryjpeg.com/thumbs2/ori_3656333_x8l8omv5oef7274o4u2iiufvm03v39glm0lql6g7_monogram-al-logo-design.jpg" alt="Your Name">
+            <p>A passionate web developer with a keen eye for design. Experienced in creating responsive websites with HTML, CSS, and JavaScript.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="section-content">
+            <h2>Skills</h2>
+            <ul class="skills">
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript</li>
+                <li>Responsive Design</li>
+                <li>UI/UX Design</li>
+                <li>Bootstrap</li>
+                <!-- Add more skills as needed -->
+            </ul>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-content">
+            <h2>Projects</h2>
+            <div class="project">
+                <img src="https://cdn-icons-png.flaticon.com/512/1011/1011863.png" alt="Project 1">
+                <div class="project-content">
+                    <h3>CALCULATOR</h3>
+                    <p> A calculator using html,css , and javascript</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="https://w7.pngwing.com/pngs/488/212/png-transparent-landing-page-marketing-web-page-lead-generation-marketing-web-design-service-logo.png" alt="Project 2">
+                <div class="project-content">
+                    <h3>LANDING PAGE</h3>
+                    <p>A LANDING PAGE using html,css , and javascript.</p>
+                </div>
+            </div>
+            <!-- Add more projects as needed -->
+        </div>
+    </section>
+
+    <section id="resume">
+        <div class="section-content">
+            <h2>Resume</h2>
+            <p>Download my <a href="resume.pdf" target="_blank">resume</a>.</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <h2>Contact Me</h2>
+            <p>Email: ankitalod0@example.com</p>
+            <p>Phone: 9657018680</p>
+            <p>Follow me on <a href="https://twitter.com/yourusername" target="_blank">Twitter</a></p>
+        </div>
+    </footer>
+</body>
+</html>
